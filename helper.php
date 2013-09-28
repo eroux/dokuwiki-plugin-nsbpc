@@ -58,10 +58,22 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
    * The config file is __XXX.cfg, where XXX is the name supplied to this
    * function. The currentns argument is the current namespace (or page name).
    *
-   * The result is a string containing the path to the file.
+   * The result is a string containing the path to the file, or false if no
+   * conf file is found.
    */
     function getConfFile($name, $currentns){
-      return "test";
+      $name = "nbspc".$name;
+      $namespaces = explode(':', getNS(cleanID(getID())));
+      while(!empty($namespaces))
+      {
+        $page = implode(':', $namespaces).':'.$name;
+        if (page_exists($page))
+        {
+          return($page);
+        }
+        array_pop($namespaces);
+      }
+      return false;
     }
   /**
    * This function returns an array of configuration items for the plugin.
@@ -70,6 +82,8 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
    * files of the current and parent namespaces. When a key is present in
    * several of these files, the returned associated value is the one of the
    * closest config file.
+   *
+   * If no conf file is found, then the returned array is empty.
    *
    * The currentns argument is the same as above.
    */
