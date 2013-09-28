@@ -36,7 +36,8 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
       $result = array();
       $result[] = array(
         'name' => 'getConfID',
-        'desc' => 'returns the id of the closest config page for the plugin in the current or parent namespaces',
+        'desc' => 'returns the id of the closest config page for the plugin in'
+                 .'the current or parent namespaces',
         'params' => array(
           'name' => 'string',
           'currentns' => 'string',
@@ -45,7 +46,9 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
         );
       $result[] = array(
         'name' => 'getConf',
-        'desc' => 'returns the configuration for a plugin, reading config from all config pages associated to this plugin in the current and parent namespaces',
+        'desc' => 'returns the configuration for a plugin, reading config from'
+                 .'all config pages associated to this plugin in the current'
+                 .'and parent namespaces',
         'params' => array(
           'name' => 'string',
           'currentns' => 'string',
