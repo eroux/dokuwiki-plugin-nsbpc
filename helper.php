@@ -37,24 +37,30 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
       $result[] = array(
         'name' => 'getConfFile',
         'desc' => 'returns the path of the closes config file for the plugin in the current or parent namespaces',
-        'params' => array('name' => 'string'),
+        'params' => array(
+          'name' => 'string',
+          'currentns' => 'string',
+          ),
         'return' => array('filepath' => 'string'),
         );
       $result[] = array(
         'name' => 'getConf',
         'desc' => 'returns the configuration for a plugin, reading config from all config files associated to this plugin in the current and parent namespaces',
-        'params' => array('name' => 'string'),
+        'params' => array(
+          'name' => 'string',
+          'currentns' => 'string',
+          ),
         'return' => array('conf' => 'array'),
         );
     }
   /**
    * This function returns the path of the closest config file for the plugin.
    * The config file is __XXX.cfg, where XXX is the name supplied to this
-   * function.
+   * function. The currentns argument is the current namespace (or page name).
    *
    * The result is a string containing the path to the file.
    */
-    function getConfFile(name){
+    function getConfFile($name, $currentns){
       return "test";
     }
   /**
@@ -72,8 +78,10 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
    * of the current and parent namespaces. When a key is present in several of
    * these files, the returned associated value is the one of the closest 
    * config file.
+   *
+   * The currentns argument is the same as above.
    */
-    function getConf($name){
+    function getConf($name, $currentns){
       return array();
     }
   /**
