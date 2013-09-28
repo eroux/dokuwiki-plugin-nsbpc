@@ -4,24 +4,26 @@ This plugin is a very simple helper that can handle per-namespace configuration 
 
 ### How it works
 
-The solution used is very simple: it uses configuration files with the name `__pluginname.cfg`, with the very same syntax as ini files (for the sake of simplicity and not reinventing the wheel). See [php.net] (especially the *Changelog* section)for the description of the function used to parse config files.
+The solution used is very simple: it uses configuration pages with the name `nsbpc_pluginname`, with the very same syntax as ini files (for the sake of simplicity and not reinventing the wheel). See [php.net] (especially the *Changelog* section)for the description of the function used to parse config files.
 
 When a plugin wants to read its configuration, it calls the function `getConf($pluginname, $currentns)`, and gets an array with simple `key->values` content. This array has the same structure as described in [php.net], with *process_sections* set to `false`. 
 
 The `getConf` function reads first the config file in the current namespace, and then in the parent namespace, etc., skipping if files don't exist and never overriding the values. Which means that if you have a config file in the current namespace defining `foo->foo` and a config file in the parent namespace with `foo->bar`, then the `getConf` function will return `foo->foo`.
 
-NSBPC also provides a function `getConfFile($pluginname, $currentns)` that provides the path of the closest `__pluginname.cfg` file, by looking in the current directory, then in the parent, etc.
+NSBPC also provides a function `getConfID($pluginname, $currentns)` that provides the path of the closest `nsbpc_pluginname` file, by looking in the current directory first, then in the parent, etc. Note that this function can be used for config files not parseable by `parse_ini_file`.
 
-In the case where no conf file is found, the return value is `false` for `getConfFile` and an empty array for `getConf`.
+In the case where no conf file is found, the return value is `false` for `getConfID` and an empty array for `getConf`.
 
 ### Limitations
 
 Cache issues are not yet handled, so when modifying your config files, you may
-have to clean your cache...
+have to clean your cache.
 
 Please see [php.net] for the limitations of the `parse_ini_files` function according to your version of PHP. It should work well with PHP >= 5.3.
 
-In case of problems, no warning is issued...
+In case of problems, no warning is issued.
+
+No `conf['hidepages']` is set, as `nsbpc_xxx` pages are not seen in *nstoc* (which is the only automaticly generated list I can see so far). Please tell me if your config pages appear in a page list!
 
 ### Requirements
 

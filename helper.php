@@ -35,8 +35,8 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
     function getMethods(){
       $result = array();
       $result[] = array(
-        'name' => 'getConfFile',
-        'desc' => 'returns the path of the closes config file for the plugin in the current or parent namespaces',
+        'name' => 'getConfID',
+        'desc' => 'returns the id of the closest config page for the plugin in the current or parent namespaces',
         'params' => array(
           'name' => 'string',
           'currentns' => 'string',
@@ -45,7 +45,7 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
         );
       $result[] = array(
         'name' => 'getConf',
-        'desc' => 'returns the configuration for a plugin, reading config from all config files associated to this plugin in the current and parent namespaces',
+        'desc' => 'returns the configuration for a plugin, reading config from all config pages associated to this plugin in the current and parent namespaces',
         'params' => array(
           'name' => 'string',
           'currentns' => 'string',
@@ -54,30 +54,34 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
         );
     }
   /**
-   * This function returns the path of the closest config file for the plugin.
-   * The config file is __XXX.cfg, where XXX is the name supplied to this
-   * function. The currentns argument is the current namespace (or page name).
+   * This function returns the path of the closest config page ID for the
+   * plugin $name.
+   * The config page is "nbspc_$name". The $currentns argument is the current
+   * namespace. To get it, you can call getNS(cleanID(getID())).
    *
    * The result is a string containing the path to the file, or false if no
    * conf file is found.
+   *
+   * You can get the full file path by applying wikiFN() on the result.
    */
-    function getConfFile($name, $currentns){
-      $name = "nbspc".$name;
-      $namespaces = explode(':', getNS(cleanID(getID())));
+    function getConfID($name, $currentns){
+      $name = "nbspc_".$name;
+      $namespaces = explode(':', $currentns);
       while(!empty($namespaces))
       {
         $page = implode(':', $namespaces).':'.$name;
         if (page_exists($page))
         {
-          return($page);
+          return $page;
         }
         array_pop($namespaces);
       }
       return false;
     }
   /**
-   * This function returns an array of configuration items for the plugin.
-   * The config is read from __XXX.cfg, with the parse_ini_file() function. 
+   * This function returns an array of configuration items for the plugin $name.
+   * The config is read from the page "nbspc_$name", with the parse_ini_file()
+   * function.
    * The returned array contains all the configuration values in the config
    * files of the current and parent namespaces. When a key is present in
    * several of these files, the returned associated value is the one of the
@@ -88,6 +92,17 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
    * The currentns argument is the same as above.
    */
     function getConf($name, $currentns){
-      return array();
+      $name = "nbspc_".$name;
+      $namespaces = explode(':', $currentns);
+      $confarray = array();
+      while(!empty($namespaces))
+      {
+        $page = implode(':', $namespaces).':'.$name;
+        if (page_exists($page))
+        {
+          $confarray = array_replace(parse_ini_file(wikiFN($page)), $confarray);
+        }
+        array_pop($namespaces);
+      }
     }
 }
