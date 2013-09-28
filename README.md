@@ -12,12 +12,16 @@ The `getConf` function reads first the config file in the current namespace, and
 
 NSBPC also provides a function `getConfFile($pluginname, $currentns)` that provides the path of the closest `__pluginname.cfg` file, by looking in the current directory, then in the parent, etc.
 
+In the case where no conf file is found, the return value is `false` for `getConfFile` and an empty array for `getConf`.
+
 ### Limitations
 
 Cache issues are not yet handled, so when modifying your config files, you may
 have to clean your cache...
 
 Please see [php.net] for the limitations of the `parse_ini_files` function according to your version of PHP. It should work well with PHP >= 5.3.
+
+In case of problems, no warning is issued...
 
 ### Requirements
 
