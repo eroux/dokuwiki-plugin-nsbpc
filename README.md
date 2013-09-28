@@ -4,7 +4,7 @@ This plugin is a very simple helper that can handle per-namespace configuration 
 
 ### How it works
 
-The solution used is very simple: it uses configuration pages with the name `nsbpc_pluginname`, with the very same syntax as ini files (for the sake of simplicity and not reinventing the wheel). See [php.net] (especially the *Changelog* section)for the description of the function used to parse config files.
+The solution used is very simple: it uses configuration pages with the name `nsbpc_pluginname`, with the very same syntax as ini files (for the sake of simplicity and not reinventing the wheel). See [php.net], especially the *Changelog* section), for the description of the function used to parse config files.
 
 When a plugin wants to read its configuration, it calls the function `getConf($pluginname, $currentns)`, and gets an array with simple `key->values` content. This array has the same structure as described in [php.net], with *process_sections* set to `false`. 
 
