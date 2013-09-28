@@ -35,16 +35,6 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
     function getMethods(){
       $result = array();
       $result[] = array(
-        'name' => 'getConfID',
-        'desc' => 'returns the id of the closest config page for the plugin in'
-                 .'the current or parent namespaces',
-        'params' => array(
-          'name' => 'string',
-          'currentns' => 'string',
-          ),
-        'return' => array('filepath' => 'string'),
-        );
-      $result[] = array(
         'name' => 'getConf',
         'desc' => 'returns the configuration for a plugin, reading config from'
                  .'all config pages associated to this plugin in the current'
@@ -55,31 +45,25 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
           ),
         'return' => array('conf' => 'array'),
         );
-    }
-  /**
-   * This function returns the path of the closest config page ID for the
-   * plugin $name.
-   * The config page is "nbspc_$name". The $currentns argument is the current
-   * namespace. To get it, you can call getNS(cleanID(getID())).
-   *
-   * The result is a string containing the path to the file, or false if no
-   * conf file is found.
-   *
-   * You can get the full file path by applying wikiFN() on the result.
-   */
-    function getConfID($name, $currentns){
-      $name = "nbspc_".$name;
-      $namespaces = explode(':', $currentns);
-      while(!empty($namespaces))
-      {
-        $page = implode(':', $namespaces).':'.$name;
-        if (page_exists($page))
-        {
-          return $page;
-        }
-        array_pop($namespaces);
-      }
-      return false;
+      $result[] = array(
+        'name' => 'getConfID',
+        'desc' => 'returns the id of the closest config page for the plugin in'
+                 .'the current or parent namespaces',
+        'params' => array(
+          'name' => 'string',
+          'currentns' => 'string',
+          ),
+        'return' => array('id' => 'string'),
+        );
+      $result[] = array(
+        'name' => 'getConfFN',
+        'desc' => 'same as getConfID, but returns full path instead of page id',
+        'params' => array(
+          'name' => 'string',
+          'currentns' => 'string',
+          ),
+        'return' => array('path' => 'string'),
+        );
     }
   /**
    * This function returns an array of configuration items for the plugin $name.
@@ -107,5 +91,41 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
         }
         array_pop($namespaces);
       }
+    }
+  /**
+   * This function returns the path of the closest config page ID for the
+   * plugin $name.
+   * The config page is "nbspc_$name". The $currentns argument is the current
+   * namespace. To get it, you can call getNS(cleanID(getID())).
+   *
+   * The result is a string containing the path to the file, or false if no
+   * conf file is found.
+   *
+   * You can get the full file path by applying wikiFN() on the result.
+   */
+    function getConfID($name, $currentns){
+      $name = "nbspc_".$name;
+      $namespaces = explode(':', $currentns);
+      while(!empty($namespaces))
+      {
+        $page = implode(':', $namespaces).':'.$name;
+        if (page_exists($page))
+        {
+          return $page;
+        }
+        array_pop($namespaces);
+      }
+      return false;
+    }
+  /**
+   * Same as above, but returning full path of the config file.
+   */
+    function getConfFN($name, $currentns){
+      $id = getConfID($name, $currentns);
+      if ($id)
+        {
+          return wikiFN($id);
+        }
+      return false;
     }
 }

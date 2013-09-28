@@ -10,9 +10,9 @@ When a plugin wants to read its configuration, it calls the function `getConf($p
 
 The `getConf` function reads first the config file in the current namespace, and then in the parent namespace, etc., skipping if files don't exist and never overriding the values. Which means that if you have a config file in the current namespace defining `foo->foo` and a config file in the parent namespace with `foo->bar`, then the `getConf` function will return `foo->foo`.
 
-NSBPC also provides a function `getConfID($pluginname, $currentns)` that provides the path of the closest `nsbpc_pluginname` file, by looking in the current directory first, then in the parent, etc. Note that this function can be used for config files not parseable by `parse_ini_file`.
+NSBPC also provides a function `getConfID($pluginname, $currentns)` that provides the id of the closest `nsbpc_pluginname` page, by looking in the current directory first, then in the parent, etc. The function `getConfID($pluginname, $currentns)` is the same, but returns the full file path instead. Note that these function can be used to locate config files not parseable by `parse_ini_file`.
 
-In the case where no conf file is found, the return value is `false` for `getConfID` and an empty array for `getConf`.
+In the case where no conf file is found, the return value is `false` for `getConfID` and `getConfFN`, and an empty array for `getConf`.
 
 ### Limitations
 
