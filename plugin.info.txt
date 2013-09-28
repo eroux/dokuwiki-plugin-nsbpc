@@ -1,0 +1,7 @@
+base   nsbpc
+author Elie Roux
+email  elie.roux@telecom-bretagne.eu  
+date   2013-10-01
+name   NameSpace-Based Plugin Configuration
+desc   Allow plugins to use per-namespace configuration, with directory inheritance
+url    https://github.com/eroux/dokuwiki-plugin-nsbpc
