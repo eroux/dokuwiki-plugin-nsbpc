@@ -4,16 +4,11 @@ This plugin is a very simple helper that can handle per-namespace configuration 
 
 ### How it works
 
-The solution used is very simple: it uses configuration files with the name `__pluginname.cfg`, with the following simple XML syntax:
+The solution used is very simple: it uses configuration files with the name `__pluginname.cfg`, with the very same syntax as ini files (for the sake of simplicity and not reinventing the wheel). See [php.net] (especially the *Changelog* section)for the description of the function used to parse config files.
 
-```xml
-<key1>value1</key1>
-<key2>value2
-      value22</key2>
-<key3>value3</key3>
-```
+When a plugin wants to read its configuration, it calls the function `getConf($pluginname, $currentns)`, and gets an array with simple `key->values` content. This array has the same structure as described in [php.net], with *process_sections* set to `false`. 
 
-Then, when a plugin wants to read its configuration, it calls the function `getConf($pluginname, $currentns)`, and gets and array with simple `key->values` content. The `getConf` function reads first the config file in the current namespace, and then in the parent namespace, etc., skipping if files don't exist and never overriding the values. Which means that if you have a config file in the current namespace defining `foo->foo` and a config file in the parent namespace with `foo->bar`, then the `getConf` function will return `foo->foo`.
+The `getConf` function reads first the config file in the current namespace, and then in the parent namespace, etc., skipping if files don't exist and never overriding the values. Which means that if you have a config file in the current namespace defining `foo->foo` and a config file in the parent namespace with `foo->bar`, then the `getConf` function will return `foo->foo`.
 
 NSBPC also provides a function `getConfFile($pluginname, $currentns)` that provides the path of the closest `__pluginname.cfg` file, by looking in the current directory, then in the parent, etc.
 
@@ -22,6 +17,8 @@ NSBPC also provides a function `getConfFile($pluginname, $currentns)` that provi
 Cache issues are not yet handled, so when modifying your config files, you may
 have to clean your cache...
 
+Please see [php.net] for the limitations of the `parse_ini_files` function according to your version of PHP. It should work well with PHP >= 5.3.
+
 ### Requirements
 
 This plugin is very simple and should work with any version of Dokuwiki.
@@ -29,3 +26,5 @@ This plugin is very simple and should work with any version of Dokuwiki.
 ### License
 
 This plugin is licensed under the GPLv2+ license.
+
+[php.net]: http://php.net/manual/fr/function.parse-ini-file.php

@@ -65,32 +65,15 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
     }
   /**
    * This function returns an array of configuration items for the plugin.
-   * The config is read from __XXX.cfg, where XXX is the name supplied to this
-   * function. The file uses the following syntax
-   *
-   * <key1>value1</key1>
-   * <key2>value2
-   * value22</key2>
-   * <key3>value2</key3>
-   *
-   * The result is an array of simple key->value configuration items. The
-   * returned array contains all the configuration values in the config files
-   * of the current and parent namespaces. When a key is present in several of
-   * these files, the returned associated value is the one of the closest 
-   * config file.
+   * The config is read from __XXX.cfg, with the parse_ini_file() function. 
+   * The returned array contains all the configuration values in the config
+   * files of the current and parent namespaces. When a key is present in
+   * several of these files, the returned associated value is the one of the
+   * closest config file.
    *
    * The currentns argument is the same as above.
    */
     function getConf($name, $currentns){
       return array();
     }
-  /**
-   * This function reads the configuration items from a config file. It takes
-   * a configuration array as an argument, and fills it with the new conf
-   * it reads. It does not override the existing conf values of the initial
-   * array.
-   */
-   function _nsbpc_read_conf($filename, $conf){
-     return $conf;
-   }
 }
