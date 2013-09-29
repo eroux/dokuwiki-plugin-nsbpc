@@ -129,3 +129,5 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
       return false;
     }
 }
+
+?>
