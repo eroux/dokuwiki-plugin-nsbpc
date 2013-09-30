@@ -79,7 +79,7 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
    * The currentns argument is the same as above.
    */
     function getConf($name, $currentns){
-      $name = "nbspc_".$name;
+      $name = "nsbpc_".$name;
       $namespaces = explode(':', $currentns);
       $confarray = array();
       while(!empty($namespaces))
@@ -104,7 +104,7 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
    * You can get the full file path by applying wikiFN() on the result.
    */
     function getConfID($name, $currentns){
-      $name = "nbspc_".$name;
+      $name = "nsbpc_".$name;
       $namespaces = explode(':', $currentns);
       while(!empty($namespaces))
       {
