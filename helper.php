@@ -91,6 +91,7 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
         }
         array_pop($namespaces);
       }
+      return $confarray;
     }
   /**
    * This function returns the path of the closest config page ID for the
