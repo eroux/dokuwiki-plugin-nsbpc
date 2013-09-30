@@ -2,6 +2,25 @@
 
 This plugin is a very simple helper that can handle per-namespace configuration with inheritance. Its goal is to enable plugins to get a simple per-namespace configuration. It was designed for a digital library using Dokuwiki to provide online collaborative books. Each book (one per namespace) being specific, some configuration had to be adapted for each of them, hence the need for a fine-grained configuration.
 
+### How to use
+
+Using this plugin in your plugin is very simple, you just need to override the `loadConfig` method of your plugin with the following one:
+
+```php
+function loadConfig(){
+  parent::loadConfig(); // fills $this->conf with usual dokuwiki plugin config 
+  $nsbpc = $this->loadHelper('nsbpc');
+  $nsbpconf = $nsbpc->getConf($this->getPluginName(), getNS(cleanID(getID())));
+  if ($this->conf) {
+    $this->conf = array_replace($this->conf, $nsbpconf);
+  } else {
+    $this->conf = $nsbpconf;
+  }
+}
+```
+
+You will be able to use both normal Dokuwiki configuration (in the `conf/` folder of your plugin) and namespace-based configuration. The latter will have precendence in case of conflict.
+
 ### How it works
 
 The solution used is very simple: it uses configuration pages with the name `nsbpc_pluginname`, with the very same syntax as ini files (for the sake of simplicity and not reinventing the wheel). See [php.net], especially the *Changelog* section), for the description of the function used to parse config files.
@@ -33,11 +52,9 @@ This plugin is very simple and should work with any version of Dokuwiki.
 
 This plugin is licensed under the GPLv2+ license.
 
-[php.net]: http://php.net/manual/fr/function.parse-ini-file.php
-
 ### TODO
 
  - refactor code so that namespace and plugin name are class instantiation
    variables, for caching
- - document the good way to use the helper (overriding $this->getConf()? to be
-   tested...)
+
+[php.net]: http://php.net/manual/fr/function.parse-ini-file.php
