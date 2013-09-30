@@ -25,6 +25,8 @@
 // must be run within Dokuwiki
 if (!defined('DOKU_INC')) die();
 if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN', DOKU_INC.'lib/plugins/');
+// library providing the global 'cleanID()'/'getID()'/'wikiFN()' functions:
+require_once(DOKU_INC . 'inc/pageutils.php');
 
 class helper_plugin_nsbpc extends dokuwiki_plugin
 {
