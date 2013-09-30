@@ -34,3 +34,10 @@ This plugin is very simple and should work with any version of Dokuwiki.
 This plugin is licensed under the GPLv2+ license.
 
 [php.net]: http://php.net/manual/fr/function.parse-ini-file.php
+
+### TODO
+
+ - refactor code so that namespace and plugin name are class instantiation
+   variables, for caching
+ - document the good way to use the helper (overriding $this->getConf()? to be
+   tested...)
