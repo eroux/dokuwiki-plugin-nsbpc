@@ -25,7 +25,7 @@ You will be able to use both normal Dokuwiki configuration (in the `conf/` folde
 
 The solution used is very simple: it uses configuration pages with the name `nsbpc_pluginname`, with the very same syntax as ini files (for the sake of simplicity and not reinventing the wheel). See [php.net], especially the *Changelog* section), for the description of the function used to parse config files.
 
-When a plugin wants to read its configuration, it calls the function `getConf($pluginname, $currentns)`, and gets an array with simple `key->values` content. This array has the same structure as described in [php.net], with *process_sections* set to `false`. 
+When a plugin wants to read its configuration, it calls the function `getConf($pluginname, $currentns, $process_sections=false)`, and gets an array with simple `key->values` content. This array has the same structure as described in [php.net], with *process_sections* set to `false` by default (but changeable).
 
 The `getConf` function reads first the config file in the current namespace, and then in the parent namespace, etc., skipping if files don't exist and never overriding the values. Which means that if you have a config file in the current namespace defining `foo->foo` and a config file in the parent namespace with `foo->bar`, then the `getConf` function will return `foo->foo`.
 

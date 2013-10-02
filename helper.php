@@ -44,6 +44,7 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
         'params' => array(
           'name' => 'string',
           'currentns' => 'string',
+          'process_sections' => 'string',
           ),
         'return' => array('conf' => 'array'),
         );
@@ -80,7 +81,7 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
    *
    * The currentns argument is the same as above.
    */
-    function getConf($name, $currentns){
+    function getConf($name, $currentns, $process_sections=false){
       $name = "nsbpc_".$name;
       $namespaces = explode(':', $currentns);
       $confarray = array();
@@ -89,7 +90,8 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
         $page = implode(':', $namespaces).':'.$name;
         if (page_exists($page))
         {
-          $confarray = array_replace(parse_ini_file(wikiFN($page)), $confarray);
+          $confarray = array_replace(parse_ini_file(wikiFN($page),
+            $process_sections), $confarray);
         }
         array_pop($namespaces);
       }
