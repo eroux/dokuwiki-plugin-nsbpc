@@ -52,9 +52,4 @@ This plugin is very simple and should work with any version of Dokuwiki.
 
 This plugin is licensed under the GPLv2+ license.
 
-### TODO
-
- - refactor code so that namespace and plugin name are class instantiation
-   variables, for caching
-
 [php.net]: http://php.net/manual/fr/function.parse-ini-file.php
