@@ -21,6 +21,8 @@ function loadConfig(){
 
 You will be able to use both normal Dokuwiki configuration (in the `conf/` folder of your plugin) and namespace-based configuration. The latter will have precendence in case of conflict.
 
+When setting up nsbpc, you will certainly want to hide nsbpc configuration pages. To do so, please set the [hidepages](*hidepages* parameter) to `.*nsbpc.*` in your [configuration](configuration manager).
+
 ### How it works
 
 The solution used is very simple: it uses configuration pages with the name `nsbpc_pluginname`, with the very same syntax as ini files (for the sake of simplicity and not reinventing the wheel). See [php.net], especially the *Changelog* section), for the description of the function used to parse config files.
@@ -52,4 +54,10 @@ This plugin is very simple and should work with any version of Dokuwiki.
 
 This plugin is licensed under the GPLv2+ license.
 
+### TODO
+
+Automate configuration pages hiding.
+
 [php.net]: http://php.net/manual/fr/function.parse-ini-file.php
+[configuration]:https://www.dokuwiki.org/plugin:config
+[hidepages]:https://www.dokuwiki.org/config:hidepages
