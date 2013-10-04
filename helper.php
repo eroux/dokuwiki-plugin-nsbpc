@@ -126,7 +126,7 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
    * Same as above, but returning full path of the config file.
    */
     function getConfFN($name, $currentns){
-      $id = getConfID($name, $currentns);
+      $id = $this->getConfID($name, $currentns);
       if ($id)
         {
           return wikiFN($id);
