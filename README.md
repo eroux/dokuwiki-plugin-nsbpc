@@ -56,8 +56,11 @@ This plugin is licensed under the GPLv2+ license.
 
 ### TODO
 
-Automate configuration pages hiding.
+  * Automate configuration pages hiding.
+  * Make a function returning the (nsbpc_*) pages a page id depends on
+  * Make a function to write the result of the previous function in the metadata of the id, in order to be able to recompile the page (instead of taking cached version) when a configuration page is changed. See [Dokuwiki documentation][cache].
 
 [php.net]: http://php.net/manual/fr/function.parse-ini-file.php
 [configuration]:https://www.dokuwiki.org/plugin:config
 [hidepages]:https://www.dokuwiki.org/config:hidepages
+[cache]:https://www.dokuwiki.org/devel:caching#plugins
