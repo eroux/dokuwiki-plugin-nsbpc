@@ -83,6 +83,11 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
    */
     function getConf($name, $currentns, $process_sections=false){
       $name = "nsbpc_".$name;
+      // if currentns doesn't start by ":", the nsbpc_name page in
+      // the root namespace won't be found, so we add it:
+      if ($currentns[0] != ':') {
+        $currentns = ":".$currentns;
+      }
       $namespaces = explode(':', $currentns);
       $confarray = array();
       while(!empty($namespaces))
