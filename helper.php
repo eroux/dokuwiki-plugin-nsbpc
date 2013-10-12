@@ -98,7 +98,11 @@ class helper_plugin_nsbpc extends dokuwiki_plugin
           $parsedarray = parse_ini_file(wikiFN($page), $process_sections);
           if (is_array($parsedarray))
             {
-              $confarray = array_replace($parsedarray, $confarray);
+              if ($process_sections) {
+                $confarray = array_replace_recursive($parsedarray, $confarray);
+              } else {
+                $confarray = array_replace($parsedarray, $confarray);
+              }
             }
         }
         array_pop($namespaces);
