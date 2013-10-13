@@ -46,6 +46,8 @@ In case of problems, no warning is issued.
 
 No `conf['hidepages']` is set, as `nsbpc_xxx` pages are not seen in *nstoc* (which is the only automaticly generated list I can see so far). Please tell me if your config pages appear in a page list!
 
+In order for your config pages to display nice, you can put the configuration between `<code>` markups (for limitations of this, see TODO).
+
 ### Requirements
 
 This plugin is very simple and should work with any version of Dokuwiki.
@@ -58,6 +60,7 @@ This plugin is licensed under the GPLv2+ license.
 
   * Automate configuration pages hiding.
   * Make a function returning the (nsbpc_*) pages a page id depends on
+  * In future versions of PHP, the *parse\_ini\_file* function might not work properly if your pages are between `<code>` markups. Maybe this plugin should use *parse\_ini\_string* instead and tread the string before to remove the `<code>` brackets.
   * Make a function to write the result of the previous function in the metadata of the id, in order to be able to recompile the page (instead of taking cached version) when a configuration page is changed. See [Dokuwiki documentation][cache].
 
 [php.net]: http://php.net/manual/fr/function.parse-ini-file.php
